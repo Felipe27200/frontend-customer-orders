@@ -1,0 +1,46 @@
+<form class="flex justify-content-center" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div class="md:w-3/4 lg:w-3/4 xl:w-2/4">
+        <div class="grid grid-cols-12">
+            <div class="col-12">
+                <div class="field">
+                    <label class="mb-2">Código de Pedido:</label>
+                    <input type="text" pInputText class="w-full p-inputtext-sm mr-2" formControlName="order_code"/>                    
+                </div>
+
+                <div class="field">
+                    <label class="mb-2">Tipo de Documento:</label>
+                    <p-dropdown 
+                        [options]="documentTypes" 
+                        formControlName="document_type" 
+                        optionLabel="name" 
+                        styleClass="w-full"
+                    ></p-dropdown>
+
+                    <div *ngIf="document_type!.invalid && (document_type!.dirty || document_type!.touched)" class="ng-invalid ng-dirty">
+                        <div *ngIf="document_type!.errors?.['required']" class="p-error block">
+                            Tipo de Documento es requerido
+                        </div>
+                    </div>                    
+                </div>
+
+                <div class="field">
+                    <label class="mb-2">Documento:</label>
+                    <input type="number" pInputText class="w-full p-inputtext-sm mr-2" formControlName="document"/>
+
+                    <div *ngIf="document!.invalid && (document!.dirty || document!.touched)" class="ng-invalid ng-dirty">
+                        <div *ngIf="document!.errors?.['required']" class="p-error block">
+                            Documento es requerido
+                        </div>
+                    </div>
+                </div>
+                
+                <button 
+                  pButton 
+                  type="submit" 
+                  class="p-button-info w-full p-button-md align-bottom"
+                  label="Registrar Orcid" 
+                  [disabled]="!orderForm.valid"></button>
+            </div>
+        </div>
+    </div>
+</form>
