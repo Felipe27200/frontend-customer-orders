@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../service/order.service';
-import { Location } from '@angular/common';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-show-orders',
@@ -11,6 +11,10 @@ import { Location } from '@angular/common';
 
 export class ShowOrdersComponent implements OnInit 
 {
+  message: Message[] | undefined;
+  errorForms: Message[] | undefined = [];
+  isSuccessful: Boolean = true;
+
   orderList?: any;
   order?: any;
   hideOrderList: Boolean = false;
@@ -76,27 +80,48 @@ export class ShowOrdersComponent implements OnInit
 
       this.orderService.getOrder(formData)
         .subscribe((response: any) => {
-          const data = response.original.data[0];
-
-          if (data.hasOwnProperty("customer"))
+          if (response.original.response == "unsuccessful")
           {
-            this.customer_document = data.customer.document;
-            this.customer_name = data.customer.name;
-
-            this.setOrder(data);
+            this.message = [{ severity: 'error', summary: 'Error', detail: response.original.message }];
+            this.isSuccessful = false;
           }
           else
           {
-            this.customer_name = data.name;
-            this.customer_document = data.document;
-
-            this.setOrderList(data.orders)
+            const data = response.original.data[0];
+            this.isSuccessful = true;
+  
+            if (data.hasOwnProperty("customer"))
+            {
+              this.customer_document = data.customer.document;
+              this.customer_name = data.customer.name;
+  
+              this.setOrder(data);
+            }
+            else
+            {
+              this.customer_name = data.name;
+              this.customer_document = data.document;
+  
+              this.setOrderList(data.orders)
+            }
           }
         },
         (error: any) => {
-          console.log(error.error)
-          this.router.navigate([""]);
+          this.isSuccessful = false;
+
+          let errorObject = error.error.errors;
+          let objectKeys = Object.keys(errorObject);
+
+          for (let key of objectKeys)
+          {
+            this.makeErrorMessage(errorObject[key][0]);
+          }
         });
     });
-  }  
+  }
+  
+  makeErrorMessage(message: any | string)
+  {
+    this.errorForms?.push({ severity: 'error', summary: 'Error', detail: message });
+  }
 }

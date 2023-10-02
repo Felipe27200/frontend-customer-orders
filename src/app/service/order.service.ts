@@ -43,6 +43,6 @@ export class OrderService
       console.error(`El Backend retorno el código ${error.status}, body was: `, error.error);
     }
 
-    return throwError(() => new Error('Algo malo paso, por favor intente de nuevo más tarde.'));
+    return throwError(() => error);
   }
 }

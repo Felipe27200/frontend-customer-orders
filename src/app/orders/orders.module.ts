@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { ListOrderComponent } from './list-order/list-order.component';
 import { ListProductsComponent } from './list-products/list-products.component';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ListProductsComponent } from './list-products/list-products.component';
     ListProductsComponent,
   ],
   imports: [
+    MessagesModule,
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
