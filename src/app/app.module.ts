@@ -8,19 +8,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConsultOrderComponent } from './orders/consult-order/consult-order.component';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+
+import { OrdersModule } from './orders/orders.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConsultOrderComponent
   ],
   imports: [
+    TableModule,
     HttpClientModule,
     DropdownModule,
     MultiSelectModule,
@@ -30,7 +32,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule
+    OrdersModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

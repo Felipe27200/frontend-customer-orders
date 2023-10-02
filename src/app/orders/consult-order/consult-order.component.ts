@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from 'src/app/service/order.service';
-
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-consult-order',
@@ -24,7 +21,6 @@ export class ConsultOrderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private orderService: OrderService
   ) {}
 
   onSubmit()
@@ -37,19 +33,16 @@ export class ConsultOrderComponent implements OnInit {
 
     if (typeof document_type === 'object' && document_type?.hasOwnProperty('id'))
       id = document_type.id;
+    else
+      return;
 
-    let formData: any = {
-      document_type: id,
-      document: this.document.value,
-      order_code: this.order_code.value
-    };
-
-    console.dir(formData)
-
-    this.orderService.getOrder(formData)
-      .subscribe((response: any) => {
-        console.dir(response);
-      });
+    this.router.navigate(['show-orders'], {
+      queryParams: { 
+        document_type: id,
+        document: this.document.value,
+        order_code: this.order_code.value,
+        }
+    });
   }
 
   get document() { return this.orderForm.controls.document }

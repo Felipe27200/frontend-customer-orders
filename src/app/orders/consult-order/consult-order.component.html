@@ -1,4 +1,4 @@
-<form class="flex justify-content-center" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form class="flex justify-content-center mt-3" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div class="md:w-3/4 lg:w-3/4 xl:w-2/4">
         <div class="grid grid-cols-12">
             <div class="col-12">
@@ -38,7 +38,7 @@
                   pButton 
                   type="submit" 
                   class="p-button-info w-full p-button-md align-bottom"
-                  label="Registrar Orcid" 
+                  label="Consultar" 
                   [disabled]="!orderForm.valid"></button>
             </div>
         </div>

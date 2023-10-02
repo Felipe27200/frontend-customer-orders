@@ -1,0 +1,32 @@
+<!-- 
+    In the order emit to the parent the value inside the (order) have to match
+    with name of the property child with the @Output
+-->
+<div class="grid">
+    <div class="col-12 md:col-10 md:col-offset-1">
+        <div class="flex flex-column">    
+            <div class="flex w-full align-items-center justify-content-start mt-2">
+                <span class="font-bold mr-1">Cliente:</span>
+                {{ customer_name }} - {{ customer_document }}
+            </div>
+        </div>
+
+        <app-list-order *ngIf="!hideOrderList && orderList != undefined && orderList.length > 0" [orderList]="orderList" (order)="setOrder($event)"></app-list-order>
+        <app-list-products *ngIf="hideOrderList && order != undefined && order.id != undefined" [order]="order"></app-list-products>
+    </div>
+</div>
+
+<div class="flex justify-content-center mb-2" *ngIf="hideOrderList && orderList != undefined && orderList.length > 0">
+    <p-button
+      label="Ver ordenes" 
+      styleClass="p-button-raised p-button-sm p-button-secondary px-5" 
+      (onClick)="showOrders()"
+    ></p-button>
+</div>
+<div class="flex justify-content-center">
+    <p-button label="Nueva Consulta" styleClass="p-button-raised p-button-sm" (onClick)="goToForm()"></p-button>
+</div>
+<div class="flex justify-content-center">
+    <p-button label="Cerrar" styleClass="p-button-raised p-button-sm p-button-danger mt-2 px-6" (onClick)="closeWindow()"></p-button>
+</div>
+
